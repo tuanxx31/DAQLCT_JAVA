@@ -13,6 +13,10 @@
         <item name="textInputStyle">@style/Widget.Expense.TextInput</item>
     </style>
 
+    <style name="Widget" />
+
+    <style name="Widget.Expense" />
+
     <style name="Widget.Expense.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">12dp</item>
         <item name="android:textAllCaps">false</item>
@@ -26,19 +30,26 @@
         <item name="boxCornerRadiusBottomEnd">12dp</item>
     </style>
 
-    <style name="Text.Expense.Headline">
+    <style name="Text" />
+
+    <style name="Text.Expense">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="Text.Expense.Headline" parent="Text.Expense">
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textSize">26sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Text.Expense.Section">
+    <style name="Text.Expense.Section" parent="Text.Expense">
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Text.Expense.Label">
+    <style name="Text.Expense.Label" parent="Text.Expense">
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:textSize">13sp</item>
     </style>

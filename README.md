@@ -47,4 +47,15 @@ https://linear.app/tunapp/team/TEA/projects/view/quan-ly-chi-tieu-android-studio
 2. Đợi Gradle sync dependency.
 3. Chạy app module `app` trên emulator hoặc thiết bị Android.
 
-Lưu ý: môi trường terminal hiện tại chưa có Java runtime, nên cần cài JDK hoặc dùng JDK đi kèm Android Studio để build.
+Hoặc chạy bằng terminal:
+
+```bash
+JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew testDebugUnitTest assembleDebug lintDebug
+```
+
+## Kiểm thử đã chạy
+
+- `testDebugUnitTest`: pass.
+- `assembleDebug`: pass.
+- `lintDebug`: pass, còn warning không chặn build về hardcoded text/i18n và dependency update.
+- Smoke test emulator `Medium_Phone_API_36.1`: cài APK, launch app, thêm giao dịch chi tiêu 120.000đ, Home cập nhật số dư/chi tiêu, Statistics render Pie Chart.
