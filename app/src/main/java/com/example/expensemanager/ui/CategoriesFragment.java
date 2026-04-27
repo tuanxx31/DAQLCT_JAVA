@@ -1,6 +1,7 @@
 package com.example.expensemanager.ui;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,14 @@ import com.google.android.material.textfield.TextInputLayout;
 public class CategoriesFragment extends Fragment {
     private CategoryViewModel viewModel;
     private TextInputLayout nameLayout;
+    private TextInputLayout colorLayout;
     private TextInputEditText nameInput;
+    private TextInputEditText colorInput;
+    private TextInputEditText iconInput;
     private RadioGroup typeGroup;
+    private MaterialButton saveButton;
+    private MaterialButton cancelEditButton;
+    private Category editingCategory;
 
     @Nullable
     @Override
@@ -40,33 +47,94 @@ public class CategoriesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         nameLayout = view.findViewById(R.id.inputCategoryNameLayout);
+        colorLayout = view.findViewById(R.id.inputCategoryColorLayout);
         nameInput = view.findViewById(R.id.inputCategoryName);
+        colorInput = view.findViewById(R.id.inputCategoryColor);
+        iconInput = view.findViewById(R.id.inputCategoryIcon);
         typeGroup = view.findViewById(R.id.categoryTypeGroup);
+        saveButton = view.findViewById(R.id.buttonAddCategory);
+        cancelEditButton = view.findViewById(R.id.buttonCancelCategoryEdit);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerCategories);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        CategoryAdapter adapter = new CategoryAdapter(this::confirmDelete);
+        CategoryAdapter adapter = new CategoryAdapter(new CategoryAdapter.Listener() {
+            @Override
+            public void onEdit(Category category) {
+                startEdit(category);
+            }
+
+            @Override
+            public void onDelete(Category category) {
+                confirmDelete(category);
+            }
+        });
         recyclerView.setAdapter(adapter);
         viewModel.getAll().observe(getViewLifecycleOwner(), adapter::submitList);
 
-        MaterialButton add = view.findViewById(R.id.buttonAddCategory);
-        add.setOnClickListener(v -> addCategory());
+        saveButton.setOnClickListener(v -> saveCategory());
+        cancelEditButton.setOnClickListener(v -> clearForm());
     }
 
-    private void addCategory() {
+    private void saveCategory() {
         nameLayout.setError(null);
+        colorLayout.setError(null);
         String name = nameInput.getText() == null ? "" : nameInput.getText().toString().trim();
         if (name.isEmpty()) {
             nameLayout.setError("Vui lòng nhập tên danh mục");
             return;
         }
+        String color = colorInput.getText() == null ? "" : colorInput.getText().toString().trim();
+        if (!isValidColor(color)) {
+            colorLayout.setError("Màu phải có dạng #RRGGBB");
+            return;
+        }
+        String icon = iconInput.getText() == null ? "" : iconInput.getText().toString().trim();
+        if (icon.isEmpty()) {
+            icon = "custom";
+        }
         String type = typeGroup.getCheckedRadioButtonId() == R.id.radioIncomeCategory
                 ? TransactionType.INCOME
                 : TransactionType.EXPENSE;
-        String color = TransactionType.INCOME.equals(type) ? "#16A34A" : "#DC2626";
-        viewModel.insert(new Category(name, type, color, "custom", System.currentTimeMillis()));
+        if (editingCategory == null) {
+            viewModel.insert(new Category(name, type, color, icon, System.currentTimeMillis()));
+            Toast.makeText(requireContext(), "Đã thêm danh mục", Toast.LENGTH_SHORT).show();
+        } else {
+            editingCategory.setName(name);
+            editingCategory.setType(type);
+            editingCategory.setColor(color);
+            editingCategory.setIcon(icon);
+            viewModel.update(editingCategory);
+            Toast.makeText(requireContext(), "Đã cập nhật danh mục", Toast.LENGTH_SHORT).show();
+        }
+        clearForm();
+    }
+
+    private boolean isValidColor(String color) {
+        try {
+            Color.parseColor(color);
+            return color.matches("#[0-9a-fA-F]{6}");
+        } catch (IllegalArgumentException exception) {
+            return false;
+        }
+    }
+
+    private void startEdit(Category category) {
+        editingCategory = category;
+        nameInput.setText(category.getName());
+        colorInput.setText(category.getColor());
+        iconInput.setText(category.getIcon());
+        typeGroup.check(TransactionType.INCOME.equals(category.getType()) ? R.id.radioIncomeCategory : R.id.radioExpenseCategory);
+        saveButton.setText("Cập nhật danh mục");
+        cancelEditButton.setVisibility(View.VISIBLE);
+    }
+
+    private void clearForm() {
+        editingCategory = null;
         nameInput.setText("");
-        Toast.makeText(requireContext(), "Đã thêm danh mục", Toast.LENGTH_SHORT).show();
+        colorInput.setText(typeGroup.getCheckedRadioButtonId() == R.id.radioIncomeCategory ? "#16A34A" : "#DC2626");
+        iconInput.setText("custom");
+        saveButton.setText("Thêm danh mục");
+        cancelEditButton.setVisibility(View.GONE);
     }
 
     private void confirmDelete(Category category) {

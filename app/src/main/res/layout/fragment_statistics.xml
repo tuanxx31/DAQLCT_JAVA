@@ -15,12 +15,41 @@
             android:layout_height="wrap_content"
             android:text="Thống kê" />
 
-        <TextView
-            android:id="@+id/textStatisticMonth"
-            style="@style/Text.Expense.Label"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="8dp"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonPreviousMonth"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:text="Tháng trước" />
+
+            <TextView
+                android:id="@+id/textStatisticMonth"
+                style="@style/Text.Expense.Label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonNextMonth"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:text="Tháng sau" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,6 +67,20 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <TextView
+            style="@style/Text.Expense.Section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Thu/chi theo ngày" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_card" />
 
         <TextView
             style="@style/Text.Expense.Section"

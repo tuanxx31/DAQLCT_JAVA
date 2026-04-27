@@ -53,6 +53,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             listener.onDelete(category);
             return true;
         });
+        holder.itemView.setOnClickListener(v -> listener.onEdit(category));
     }
 
     @Override
@@ -74,6 +75,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public interface Listener {
+        void onEdit(Category category);
+
         void onDelete(Category category);
     }
 }

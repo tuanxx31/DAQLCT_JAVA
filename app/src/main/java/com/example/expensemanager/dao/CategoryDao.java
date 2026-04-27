@@ -25,6 +25,9 @@ public interface CategoryDao {
     @Query("SELECT * FROM categories ORDER BY type, name")
     LiveData<List<Category>> getAll();
 
+    @Query("SELECT * FROM categories ORDER BY type, name")
+    List<Category> getAllSync();
+
     @Query("SELECT * FROM categories WHERE type = :type ORDER BY name")
     LiveData<List<Category>> getByType(String type);
 
@@ -33,6 +36,9 @@ public interface CategoryDao {
 
     @Query("SELECT * FROM categories WHERE id = :id LIMIT 1")
     LiveData<Category> getById(int id);
+
+    @Query("SELECT * FROM categories WHERE id = :id LIMIT 1")
+    Category getByIdSync(int id);
 
     @Query("SELECT COUNT(*) FROM transactions WHERE categoryId = :categoryId")
     int countTransactions(int categoryId);

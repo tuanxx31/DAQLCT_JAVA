@@ -25,6 +25,47 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputCategoryColorLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:hint="Màu hex">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputCategoryColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="#DC2626" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputCategoryIconLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:hint="Icon key">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputCategoryIcon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="custom" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
     <RadioGroup
         android:id="@+id/categoryTypeGroup"
         android:layout_width="match_parent"
@@ -51,6 +92,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thêm danh mục" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonCancelCategoryEdit"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hủy sửa"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCategories"

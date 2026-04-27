@@ -8,6 +8,7 @@ import com.example.expensemanager.dao.TransactionDao;
 import com.example.expensemanager.database.AppDatabase;
 import com.example.expensemanager.entity.Transaction;
 import com.example.expensemanager.model.CategoryTotal;
+import com.example.expensemanager.model.DailyTotal;
 import com.example.expensemanager.model.TransactionWithCategory;
 
 import java.util.List;
@@ -46,6 +47,10 @@ public class TransactionRepository {
 
     public LiveData<List<CategoryTotal>> getCategoryTotals(String type, long start, long end) {
         return transactionDao.getCategoryTotals(type, start, end);
+    }
+
+    public LiveData<List<DailyTotal>> getDailyTotals(long start, long end) {
+        return transactionDao.getDailyTotals(start, end);
     }
 
     public void insert(Transaction transaction) {

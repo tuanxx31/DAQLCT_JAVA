@@ -1,7 +1,7 @@
 package com.example.expensemanager.model;
 
 public class DailyTotal {
-    public long day;
+    public String dayLabel;
     public double income;
     public double expense;
 }
