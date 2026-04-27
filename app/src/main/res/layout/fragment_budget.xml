@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            style="@style/Text.Expense.Headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ngân sách" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/Text.Expense.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giới hạn chi tiêu tháng" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputBudgetLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Ngân sách"
+                app:prefixText="₫ ">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputBudget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Switch
+                android:id="@+id/switchAlert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Bật cảnh báo khi vượt ngân sách" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSaveBudget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="Lưu ngân sách" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

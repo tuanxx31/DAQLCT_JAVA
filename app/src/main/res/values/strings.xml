@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quản lý chi tiêu</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_transactions">Giao dịch</string>
+    <string name="nav_statistics">Thống kê</string>
+    <string name="nav_categories">Danh mục</string>
+    <string name="nav_budget">Ngân sách</string>
+</resources>
